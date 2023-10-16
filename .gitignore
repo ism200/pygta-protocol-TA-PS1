@@ -1,3 +1,7 @@
+# Workspace specific ignores
+PSI_TA_Scy6803GTA/results
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
