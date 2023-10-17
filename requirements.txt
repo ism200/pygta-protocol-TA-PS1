@@ -1,0 +1,3 @@
+pyglotaran
+pyglotaran-extras
+ipykernel # needed to work with notebooks in VS Code
