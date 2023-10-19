@@ -42,14 +42,6 @@ dataset:
     megacomplex:
       - mc5
     scale: scale.RP1SADS
-  # RP2SADS:
-  #   megacomplex:
-  #     - mc6
-  #   scale: scale.RP2SADS
-  # RP2aSADS:
-  #   megacomplex:
-  #     - mc7
-  #   scale: scale.RP2aSADS
   Red1SADS:
     megacomplex:
       - mc2

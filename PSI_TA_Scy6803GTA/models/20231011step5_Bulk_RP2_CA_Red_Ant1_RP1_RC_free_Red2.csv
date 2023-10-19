@@ -5,8 +5,6 @@ input700.Red2,0.14,0.000834032,None,,,False,False
 input700.RC,0.18,None,None,0.4,0,False,False
 input700.0,0,None,None,,,False,False
 rates.kF,0.000738,None,None,,,False,False
-rates.ToBulkFromRed,0.148762736,None,$rates.ToRedFromBulk*exp(0.541),,,False,False
-rates.ToRedFromBulk,0.086604577,0.000249518,None,,0,False,False
 rates.ToBulkFromRC,0.852182045,None,$rates.ToRCFromBulk*exp(1.5),,,False,False
 rates.ToRCFromBulk,0.190147516,None,None,,,False,False
 rates.ToRCFromRP1,0.005378421,None,None,,,False,False
@@ -36,8 +34,6 @@ artifact.CAwidth,0.04968828,0.000173987,None,,0,False,False
 rates.ToBulkFromAnt1,2.347720451,None,$rates.ToAnt1FromBulk*exp(4),,,False,False
 rates.ToAnt1FromBulk,0.043,None,None,,,False,False
 scale.RP1SADS,1.170640764,0.005255687,None,,0,False,True
-scale.RP2SADS,0.966906995,0.003398535,None,,0,False,True
-scale.RP2aSADS,0.966906995,0.035747083,$scale.RP2SADS,,0,False,False
 scale.Ant1SADS,1,0.035747083,None,,0,False,False
 scale.Red1SADS,1,0.019425482,None,,0,False,True
 scale.Red2SADS,1,0.021923997,None,,0,False,True

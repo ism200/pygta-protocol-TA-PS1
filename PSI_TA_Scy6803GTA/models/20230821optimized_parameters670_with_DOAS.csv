@@ -1,0 +1,17 @@
+label,value,standard_error,expression,maximum,minimum,non_negative,vary
+input.1,1,None,None,,,False,False
+input.0,0,None,None,,,False,False
+brates.k21,2.713271729,0.011752522,None,,0,False,True
+brates.k32,0.384703313,0.001638266,None,,0,False,True
+brates.k43,0.063850921,0.000633419,None,,0,False,True
+brates.k54,0.0378,None,None,,0,False,True
+brates.k55,2.00E-05,None,None,,,False,False
+scale.670,1,None,None,,,False,False
+scale.670TR2,0.987974558,0.000432049,None,,0,False,True
+irf.center1,0.320793832,0.000613616,None,,0,False,True
+irf.width1,0.040117797,0.000446177,None,,0,False,True
+irf.disp1,-1.912281025,0.00559508,None,,,False,True
+irf.dispcenter,700,None,None,,,False,False
+osc.rates.1,-21.37717092,0.636387189,None,,,False,True
+osc.freq.1,104.2445834,0.976062301,None,,,False,True
+artifact.CAwidth,0.049675003,0.000173932,None,,0,False,True

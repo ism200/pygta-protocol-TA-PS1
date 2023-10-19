@@ -140,26 +140,16 @@ irf:
     model_dispersion_with_wavenumber: true
 
 weights:
-  # - datasets: [Ant1SADS]
-  #   global_interval: [100, 1000]
-  #   value: 1.
-  # - datasets: [RP1SADS]
-  #   global_interval: [100, 1000]
-  #   value: 1.
-  # unique for TA
   - datasets: [700TR1,700TR2]
     # if omitted the weight applies everywhere
     global_interval: [703, 704]
     value: 0.03
   - datasets: [700TR1,700TR2]
-    # if omitted the weight applies everywhere
     global_interval: [705, 706]
     value: 0.03
   - datasets: [700TR1,700TR2]
-    # if omitted the weight applies everywhere
     global_interval: [706, 707]
     value: 0.1
   - datasets: [700TR1,700TR2]
-    # if omitted the weight applies everywhere
     global_interval: [698, 699]
     value: 0.3

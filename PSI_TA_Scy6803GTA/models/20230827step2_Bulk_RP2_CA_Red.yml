@@ -123,23 +123,17 @@ irf:
     center_dispersion_coefficients: [irf.disp1]
     model_dispersion_with_wavenumber: true
 
-# weights:
-#   # unique for TA
-#   - datasets: [RedSADS]
-#     # if omitted the weight applies everywhere
-#     global_interval: [100, 1000]
-#     # this would be time
-#     # model_interval: [100, 1000]
-#     value: 6.e-5
-#     # value: 6.e-3
-#   # - datasets: [Red2SADS]
-#   #   global_interval: [100, 1000]
-#   #   value: 6.e-3
-#   - datasets: [RCSADS]
-#     global_interval: [100, 1000]
-#     # value: 6.e-3
-#     value: 6.e-5
-#   - datasets: [RP1SADS]
-#     global_interval: [100, 1000]
-#     # value: 6.e-3
-#     value: 6.e-6
+weights:
+  - datasets: [700TR1,700TR2]
+    # if omitted the weight applies everywhere
+    global_interval: [703, 704]
+    value: 0.03
+  - datasets: [700TR1,700TR2]
+    global_interval: [705, 706]
+    value: 0.03
+  - datasets: [700TR1,700TR2]
+    global_interval: [706, 707]
+    value: 0.1
+  - datasets: [700TR1,700TR2]
+    global_interval: [698, 699]
+    value: 0.3
