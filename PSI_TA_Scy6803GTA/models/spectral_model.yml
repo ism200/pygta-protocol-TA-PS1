@@ -25,3 +25,21 @@ shape:
     location: spectral.loc2
     width: spectral.width2
     skewness: spectral.skew2
+
+weights:
+  - datasets: [dataset]
+    # if omitted the weight applies everywhere
+    model_interval: [703, 704]
+    value: 0.03
+  - datasets: [dataset]
+    # if omitted the weight applies everywhere
+    model_interval: [705, 706]
+    value: 0.03
+  - datasets: [dataset]
+    # if omitted the weight applies everywhere
+    model_interval: [706, 707]
+    value: 0.1
+  - datasets: [dataset]
+    # if omitted the weight applies everywhere
+    model_interval: [698, 699]
+    value: 0.3

@@ -8,21 +8,29 @@ dataset:
   # TA datasets
   670TR1:
     megacomplex: [complex670, doas,artifact670]
+    # megacomplex: [complex670, doas, artifact670]
+    # megacomplex_scale: [scalem.1,scalem.free]
     initial_concentration: input670
     irf: irf1
     scale: scale.670
   670TR2:
+    # megacomplex: [complex670TR2]
     megacomplex: [complex670]
+    # megacomplex_scale: [scalem.1,scalem.free]
     initial_concentration: input670
     irf: irf1
     scale: scale.670TR2
   700TR1:
     megacomplex: [complex700, artifact700]
+    # megacomplex: [complex700, artifact700]
+    # megacomplex_scale: [scalem.1]
     initial_concentration: input700
     irf: irf2
     scale: scale.700
   700TR2:
+    # megacomplex: [complex700TR2]
     megacomplex: [complex700]
+    # megacomplex_scale: [scalem.1]
     initial_concentration: input700
     irf: irf2
     scale: scale.700TR2
@@ -34,6 +42,22 @@ dataset:
     megacomplex:
       - mc5
     scale: scale.RP1SADS
+  Red1SADS:
+    megacomplex:
+      - mc2
+    scale: scale.Red1SADS
+  Red2SADS:
+    megacomplex:
+      - mc3
+    scale: scale.Red2SADS
+  RCSADS:
+    megacomplex:
+      - mc4
+    scale: scale.RCSADS
+  freeSADS:
+    megacomplex:
+      - mc8
+    scale: scale.freeSADS
 
 megacomplex:
   complex670:
@@ -58,19 +82,45 @@ megacomplex:
     dimension: time
     target: Ant1
     type: clp-guide
+  mc2:
+    dimension: time
+    target: Red1
+    type: clp-guide
+  mc3:
+    dimension: time
+    target: Red2
+    type: clp-guide
+  mc4:
+    dimension: time
+    target: RC
+    type: clp-guide
   mc5:
     dimension: time
     target: RP1
     type: clp-guide
-
+  # mc6:
+  #   dimension: time
+  #   target: RP2
+  #   type: clp-guide
+  # mc7:
+  #   dimension: time
+  #   target: RP2a
+  #   type: clp-guide
+  mc8:
+    dimension: time
+    target: free
+    type: clp-guide
 # note that earlier definition will override later definition
 k_matrix:
   kmWL:
     matrix:
-      (Bulk, Red): rates.ToBulkFromRed
-      (Red, Bulk): rates.ToRedFromBulk
+      (Bulk, Red1): rates.ToBulkFromRed1
+      (Red1, Bulk): rates.ToRed1FromBulk
+      (Bulk, Red2): rates.ToBulkFromRed2
+      (Red2, Bulk): rates.ToRed2FromBulk
       (Ant1, Ant1): rates.kF
-      (Red, Red): rates.kF
+      (Red1, Red1): rates.kF
+      (Red2, Red2): rates.kF
       (Bulk, Bulk): rates.kF
       (RC, RC): rates.kF
       (RC, RP1): rates.ToRCFromRP1
@@ -86,12 +136,13 @@ k_matrix:
 initial_concentration:
   # unique for TA
   input670:
-    compartments: [Ant1, Bulk, Red, RC, RP1, RP2, free]
+    compartments: [Ant1, Bulk, Red1, Red2, RC, RP1, RP2, free]
     parameters:
       [
         input670.Ant1,
         input670.Bulk,
-        input670.Red,
+        input670.Red1,
+        input670.Red2,
         input670.RC,
         input670.0,
         input670.0,
@@ -99,12 +150,13 @@ initial_concentration:
       ]
     exclude_from_normalize: [free]
   input700:
-    compartments: [Ant1, Bulk, Red, RC, RP1, RP2, free]
+    compartments: [Ant1, Bulk, Red1, Red2, RC, RP1, RP2, free]
     parameters:
       [
         input700.0,
         input700.Bulk,
-        input700.Red,
+        input700.Red1,
+        input700.Red2,
         input700.RC,
         input700.0,
         input700.0,
@@ -115,7 +167,13 @@ clp_constraints:
   - type: zero
     target: free
     interval:
-      - [681, 762]
+      # - [681, 762]
+      - [690, 762]
+  # - type: zero
+  #   target: RC
+  #   interval:
+  #     # - [681, 762]
+  #     - [716, 762]
 
 irf:
   irf1:
@@ -133,23 +191,61 @@ irf:
     center_dispersion_coefficients: [irf.disp1]
     model_dispersion_with_wavenumber: true
 
+# weights:
+#   # unique for TA
+#   - datasets: [RedSADS]
+#     # if omitted the weight applies everywhere
+#     global_interval: [100, 1000]
+#     # this would be time
+#     # model_interval: [100, 1000]
+#     value: 6.e-5
+#     # value: 6.e-3
+#   # - datasets: [Red2SADS]
+#   #   global_interval: [100, 1000]
+#   #   value: 6.e-3
+#   - datasets: [RCSADS]
+#     global_interval: [100, 1000]
+#     # value: 6.e-3
+#     value: 6.e-5
+#   - datasets: [RP1SADS]
+#     global_interval: [100, 1000]
+#     # value: 6.e-3
+#     value: 6.e-6
 weights:
   - datasets: [Ant1SADS]
     global_interval: [100, 1000]
-    value: 1.
+    value: 0.05
   - datasets: [RP1SADS]
     global_interval: [100, 1000]
+    value: 0.03
+  - datasets: [freeSADS]
+    global_interval: [100, 1000]
+    value: 0.3
+  - datasets: [RCSADS]
+    global_interval: [100, 1000]
+    value: 0.3
+    # value: 0.4
+  - datasets: [Red1SADS]
+    global_interval: [100, 1000]
+    value: 0.5
+    # value: 0.4
+  - datasets: [Red2SADS]
+    global_interval: [100, 1000]
+    # value: 0.7
     value: 0.5
   - datasets: [700TR1,700TR2]
     # if omitted the weight applies everywhere
     global_interval: [703, 704]
     value: 0.03
   - datasets: [700TR1,700TR2]
+    # if omitted the weight applies everywhere
     global_interval: [705, 706]
     value: 0.03
   - datasets: [700TR1,700TR2]
+    # if omitted the weight applies everywhere
     global_interval: [706, 707]
     value: 0.1
   - datasets: [700TR1,700TR2]
+    # if omitted the weight applies everywhere
     global_interval: [698, 699]
     value: 0.3

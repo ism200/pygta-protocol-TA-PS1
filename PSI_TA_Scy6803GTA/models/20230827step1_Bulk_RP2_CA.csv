@@ -1,16 +1,6 @@
 label,value,standard_error,expression,maximum,minimum,non_negative,vary
 input700.Bulk,1,None,None,,,False,False
-input700.Red,0.459747002,None,1-$input700.Bulk-$input700.RC,,,False,False
-input700.RC,0.200000003,None,None,,,False,False
 input700.0,0,None,None,,,False,False
-rates.kF,0.000738,None,None,,,False,False
-rates.ToBulkFromRed,0.196260376,None,$rates.ToRedFromBulk*exp(0.541),,,False,False
-rates.ToRedFromBulk,0.117791497,0.000248022,None,,,False,False
-rates.ToBulkFromRC,0.859185934,None,$rates.ToRCFromBulk*exp(1.5),,,False,False
-rates.ToRCFromBulk,0.190930218,None,None,,,False,False
-rates.ToRCFromRP1,0.005378421,None,None,,,False,False
-rates.ToRP1FromRC,0.9,None,None,,,False,False
-rates.ToRP2FromRP1,0.0585,None,None,,,False,False
 rates.ToRP2FromBulk,0.0585,None,None,,0,False,True
 rates.ToRP2FromRP2,1.00E-05,None,None,,,False,False
 scale.670,1,None,None,,,False,False

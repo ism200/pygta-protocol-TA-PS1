@@ -1,0 +1,59 @@
+default_megacomplex: spectral
+dataset:
+  dataset:
+    megacomplex: [spec_mc,spec_mc2]
+    # megacomplex_scale: [scalem.1,scalem.2,scalem.1,scalem.2]
+    spectral_axis_inverted: True # to allow specification of spectral parameters in cm-1
+    spectral_axis_scale: 1E7 # 10000000 # 1E7
+
+megacomplex:
+  spec_mc:
+    type: spectral
+    shape:
+      s1: sh1
+      s2: sh2
+  spec_mc2:
+    type: spectral
+    shape:
+      s3: sh3
+      s4: sh4
+
+clp_relations:
+  - source: s1
+    target: s2
+    parameter: rel.r1
+    interval: [[0, 1000]]
+  - source: s1
+    target: s3
+    parameter: rel.r1
+    interval: [[0, 1000]]
+  - source: s1
+    target: s4
+    parameter: rel.r1
+    interval: [[0, 1000]]
+
+shape:
+  sh1:
+    type: skewed-gaussian
+    amplitude: spectral.amp1
+    location: spectral.loc1
+    width: spectral.width1
+    skewness: spectral.skew1
+  sh2:
+    type: skewed-gaussian
+    amplitude: spectral.amp2
+    location: spectral.loc2
+    width: spectral.width2
+    skewness: spectral.skew2
+  sh3:
+    type: skewed-gaussian
+    amplitude: spectral.amp3
+    location: spectral.loc3
+    width: spectral.width3
+    skewness: spectral.skew3
+  sh4:
+    type: skewed-gaussian
+    amplitude: spectral.amp4
+    location: spectral.loc4
+    width: spectral.width4
+    skewness: spectral.skew4

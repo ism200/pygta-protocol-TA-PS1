@@ -144,7 +144,7 @@ clp_constraints:
   - type: zero
     target: freeChla
     interval:
-      - [690, 731]
+      - [692, 731]
   - type: zero
     target: freeChla
     interval:
