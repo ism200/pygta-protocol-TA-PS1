@@ -1,0 +1,16 @@
+label,value,standard_error,expression,maximum,minimum,non_negative,vary
+input.1,1,None,None,,,False,False
+input.0,0,None,None,,,False,False
+rates.k21,1.189922216,None,None,,0,False,True
+rates.k32,0.064535109,0.020878199,None,,0,False,True
+rates.k43,0.03832,0.000726395,None,,0,False,True
+rates.k44,2.00E-05,None,None,,0,False,True
+rates.k55,1,None,None,,0,False,False
+area.1,1,None,None,,,False,False
+rel.r1,1,None,None,,,False,False
+scale.700,0.7,None,None,,0,False,False
+scale.700TR2,0.692458803,0.000421643,None,,0,False,True
+irf.center2,0.298740179,0.000331046,None,,0,False,True
+irf.width2,0.052484906,0.000165054,None,,0,False,True
+irf.disp1,-1.912612849,0.005595244,None,,,False,True
+irf.dispcenter,700,None,None,,,False,False

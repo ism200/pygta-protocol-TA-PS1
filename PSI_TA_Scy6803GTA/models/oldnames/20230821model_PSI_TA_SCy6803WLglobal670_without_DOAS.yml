@@ -1,0 +1,70 @@
+# default_megacomplex: decay
+dataset_groups:
+  default:
+    residual_function: variable_projection
+    link_clp: True
+
+dataset:
+  # TA datasets
+  670TR1:
+    # megacomplex: [complex670]
+    megacomplex: [complex670, artifact670]
+    # megacomplex: [complex670, artifact670]
+    # megacomplex_scale: [scalem.1,scalem.freeChl]
+    initial_concentration: input670
+    irf: irf1
+    scale: scale.670
+  670TR2:
+    # megacomplex: [complex670TR2]
+    megacomplex: [complex670]
+    # megacomplex_scale: [scalem.1,scalem.freeChl]
+    initial_concentration: input670
+    irf: irf1
+    scale: scale.670TR2
+
+megacomplex:
+  # unique for TA
+  complex670:
+    type: decay
+    k_matrix: [km670]
+  artifact670:
+    type: coherent-artifact
+    order: 3
+    width: artifact.CAwidth
+
+# how can i now express that the first 20 lines
+# are common for complexes 1-5, and the next 11 lines
+# are common for complexes 1-4? how can i specify in chunks?
+# note that earlier definition will override later definition
+k_matrix:
+  km670:
+    matrix:
+      (br2, br1): brates.k21
+      (br3, br2): brates.k32
+      (br4, br3): brates.k43
+      (br5, br4): brates.k54
+      (br5, br5): brates.k55
+
+initial_concentration:
+  # unique for TA
+  input670:
+    compartments: [br1,br2,br3,br4,br5]
+    parameters:
+      [
+        input.1,
+        input.0,
+        input.0,
+        input.0,
+        input.0,
+      ]
+
+
+# it is implicitly normalized, i.e. divided by sum of irfscale parameters
+irf:
+  irf1:
+    type: spectral-gaussian
+    center: irf.center1
+    width: irf.width1
+    dispersion_center: irf.dispcenter
+    center_dispersion_coefficients: [irf.disp1]
+    model_dispersion_with_wavenumber: true
