@@ -1,0 +1,38 @@
+{
+  "title": "Global and target analysis of transient absorption spectra of photosystem I",
+  "creators": [
+    {
+      "name": "Ivo H.M. van Stokkum",
+      "affiliation": "Vrije Universiteit Amsterdam",
+      "orcid": "0000-0002-6143-2021"
+    },
+    {
+      "name": "Sebastian Weigand",
+      "affiliation": "Technical University Berlin"
+    },
+    {
+      "name": "J\u00f6rn Wei\u00dfenborn",
+      "affiliation": "Vrije Universiteit Amsterdam"
+    },
+    {
+      "name": "Joris Snellenburg",
+      "affiliation": "Vrije Universiteit Amsterdam",
+      "orcid": "0000-0002-1428-0221"
+    }
+  ],
+  "keywords": [
+    "global analysis",
+    "target analysis",
+    "photosynthesis",
+    "transient absorption",
+    "ultrafast spectroscopy",
+    "time-resolved spectroscopy",
+    "biophysics",
+    "glotaran",
+    "python"
+  ],
+  "access_right": "open",
+  "license": "MIT",
+  "upload_type": "publication",
+  "publication_type": "softwaredocumentation"
+}
