@@ -6,7 +6,13 @@ pyglotaran STAR protocol for analysis of transient absorption spectra of photosy
 Global and target analysis of transient absorption spectra of photosystem I describing the protocol for Fig.1-4 and Fig.S1-5 of the Cell Press paper DOI: [10.1016/j.isci.2023.107650](https://doi.org/10.1016/j.isci.2023.107650).
 
 
-## Setup environment
+## Getting started
+
+### Use in a codespace
+
+This repository is configured to be used in a codespace. To use it, click the green "Code" button at the top of the repository and select "Open with Codespaces". This will open a codespace with the repository pre-installed and ready to use.
+
+### Local setup
 
 There are many ways to setup a python environment. Here we use conda to create a new environment and install the packages needed to run the notebooks in this repository.
 

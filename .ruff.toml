@@ -46,4 +46,5 @@ extend-include = ["*.ipynb"]
 "*.ipynb" = [
     "E402",  # E402 Module level import not at top of file
     "E703", # E703 [*] Statement ends with an unnecessary semicolon
+    "B018", # Useless expression
     ]
