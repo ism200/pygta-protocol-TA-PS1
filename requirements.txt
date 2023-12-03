@@ -1,3 +1,6 @@
-pyglotaran
-pyglotaran-extras
 ipykernel # needed to work with notebooks in VS Code
+# pyglotaran
+# pyglotaran-extras
+# to install the pyglotaran package from github, run the following commands in the terminal
+git+https://github.com/glotaran/pyglotaran.git
+git+https://github.com/glotaran/pyglotaran-extras.git

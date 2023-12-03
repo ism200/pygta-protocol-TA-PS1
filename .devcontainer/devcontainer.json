@@ -1,0 +1,67 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.10-bookworm",
+  "hostRequirements": {
+    "cpus": 2
+  },
+  "waitFor": "updateContentCommand",
+  "onCreateCommand": {
+    "command1": "git config --global core.autocrlf input"
+  },
+  // "postCreateCommand": {
+  //   "command1": "git submodule update --init"
+  // },
+  "updateContentCommand": "python3 -m pip install -r requirements.txt",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "charliermarsh.ruff",
+        "esbenp.prettier-vscode",
+        "mechatroner.rainbow-csv",
+        "streetsidesoftware.code-spell-checker",
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "visualstudioexptteam.vscodeintellicode"
+      ],
+      "settings": {
+        // "python.formatting.provider": "none",
+        "workbench.editorAssociations": {
+          "*.png": "imagePreview.previewEditor",
+          "*.svg": "imagePreview.previewEditor"
+        },
+        // "extensions.ignoreRecommendations": true,
+        "workbench.startupEditor": "none",
+        "python.languageServer": "Pylance",
+        "editor.formatOnPaste": false,
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": false,
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+            "source.organizeImports": true
+          }
+        },
+        "[yaml][yml]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "git.autofetch": true,
+        "cSpell.ignoreWords": [
+          "pyglotaran",
+          "Intervalnr",
+          "brates",
+          "dispcenter",
+          "disp",
+          "linlog",
+          "linthresh",
+          "cmap",
+          "vmin",
+          "vmax"
+        ],
+        "cSpell.words": ["pyglotaran", "glotaran", "megacomplex", "wavenumber"]
+      }
+    }
+  }
+}
