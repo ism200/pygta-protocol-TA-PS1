@@ -2,11 +2,11 @@ default_megacomplex: spectral
 dataset:
   dataset:
     megacomplex: [spec_mc,spec_mc2]
-    # megacomplex_scale: [scalem.1,scalem.2,scalem.1,scalem.2]
     spectral_axis_inverted: True # to allow specification of spectral parameters in cm-1
-    spectral_axis_scale: 1E7 # 10000000 # 1E7
+    spectral_axis_scale: 1E7 # 10000000
 
 megacomplex:
+# each SADS is modelled as a sum of two skewed gaussian shapes
   spec_mc:
     type: spectral
     shape:
@@ -19,6 +19,9 @@ megacomplex:
       s4: sh4
 
 clp_relations:
+# these relations equate (because rel.r1 is 1) the conditionally linear parameters of the
+# spectral models for each of the SADS, thus ensuring that the shapes and
+# amplitudes of SADS' models are comparable
   - source: s1
     target: s2
     parameter: rel.r1

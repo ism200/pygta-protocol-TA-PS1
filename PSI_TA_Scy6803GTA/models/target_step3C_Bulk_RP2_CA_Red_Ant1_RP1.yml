@@ -1,4 +1,3 @@
-# default_megacomplex: decay
 dataset_groups:
   default:
     residual_function: variable_projection

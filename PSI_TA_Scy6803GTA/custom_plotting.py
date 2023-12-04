@@ -83,8 +83,8 @@ def plot_residual_and_svd(result_datasets: list, indices=None):
 
 def _custom_cyclers_for_svd_residual():
     return (
-        cycler_func(color=["k"]),
         cycler_func(color=["tab:grey"]),
+        cycler_func(color=["k"]),
         cycler_func(color=["tab:orange"]),
         cycler_func(color=["r"]),
     )

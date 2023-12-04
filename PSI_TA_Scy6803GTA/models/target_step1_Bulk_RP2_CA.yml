@@ -1,4 +1,3 @@
-# default_megacomplex: decay
 dataset_groups:
   default:
     residual_function: variable_projection
@@ -51,7 +50,6 @@ k_matrix:
       (RP2, Bulk): rates.ToRP2FromBulk
 
 initial_concentration:
-  # unique for TA
   input670:
     compartments: [Bulk, RP2]
     parameters:
