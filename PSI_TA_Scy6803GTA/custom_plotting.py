@@ -1,9 +1,10 @@
 # %%
 
 import warnings
-from typing import TYPE_CHECKING, Iterable
+from typing import Iterable
 import matplotlib.pyplot as plt
 from cycler import cycler as cycler_func
+from cycler import Cycler
 
 from pyglotaran_extras.plotting.plot_concentrations import plot_concentrations
 from pyglotaran_extras.plotting.plot_residual import plot_residual
@@ -13,42 +14,58 @@ from pyglotaran_extras.plotting.plot_traces import plot_fitted_traces
 from pyglotaran_extras.plotting.style import PlotStyle
 
 from pyglotaran_extras.types import ResultLike
-from cycler import Cycler
 
 
-def plot_concentration_and_spectra(result_datasets: list, cycler=None, das_cycler=None,labels=None):
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+def plot_concentration_and_spectra(
+    result_datasets: list, cycler=None, das_cycler=None, labels=None, show_DADS=True
+):
+    if show_DADS:
+        fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+    else:
+        fig, axes = plt.subplots(1, 2, figsize=(15, 4))
+    if isinstance(cycler, list | tuple):
+        cyclers = cycler
+    else:
+        cyclers = [cycler] * len(result_datasets)
     if labels is None:
         labels = ("A", "B", "C")
-    for result_dataset in result_datasets:
+    for idx, result_dataset in enumerate(result_datasets):
+        cycler = cyclers[idx]
         plot_concentrations(
             result_dataset, axes[0], center_λ=0, linlog=True, cycler=cycler
         )
         plot_sas(result_dataset, axes[1], cycler=cycler)
-        plot_das(result_dataset, axes[2], cycler=das_cycler)
+        if show_DADS:
+            plot_das(result_dataset, axes[2], cycler=das_cycler)
     axes[0].set_xlabel("Time (ps)")
     axes[0].set_ylabel("")
     axes[0].axhline(0, color="k", linewidth=1)
     axes[1].set_xlabel("Wavelength (nm)")
     axes[1].set_ylabel("SADS (mOD)")
     axes[1].set_title("SADS")
-    axes[2].set_xlabel("Wavelength (nm)")
-    axes[2].set_ylabel("DADS (mOD)")
-    axes[2].set_title("DADS")
+    if show_DADS:
+        axes[2].set_xlabel("Wavelength (nm)")
+        axes[2].set_ylabel("DADS (mOD)")
+        axes[2].set_title("DADS")
     axes[1].axhline(0, color="k", linewidth=1)
     axes[0].annotate(labels[0], xy=(-0.05, 1.02), xycoords="axes fraction", fontsize=16)
     axes[1].annotate(labels[1], xy=(-0.05, 1.02), xycoords="axes fraction", fontsize=16)
-    axes[2].annotate(labels[2], xy=(-0.05, 1.02), xycoords="axes fraction", fontsize=16)
+    if show_DADS:
+        axes[2].annotate(
+            labels[2], xy=(-0.05, 1.02), xycoords="axes fraction", fontsize=16
+        )
 
     return fig, axes
 
 
-def plot_residual_and_svd(result_datasets: list):
+def plot_residual_and_svd(result_datasets: list, indices=None):
     fig, axes = plt.subplots(1, 3, figsize=(10, 2))
+    if indices is None:
+        indices = [0]
     for result_dataset in result_datasets:
         plot_residual(result_dataset, axes[0])
-        plot_lsv_residual(result_dataset, axes[1], indices=[0])
-        plot_rsv_residual(result_dataset, axes[2], indices=[0])
+        plot_lsv_residual(result_dataset, axes[1], indices=indices)
+        plot_rsv_residual(result_dataset, axes[2], indices=indices)
     axes[0].get_legend().remove()
     axes[0].set_ylabel("Wavelength (nm)")
     axes[1].get_legend().remove()
@@ -63,12 +80,14 @@ def plot_residual_and_svd(result_datasets: list):
 
     return fig, axes
 
+
 def _custom_cyclers_for_svd_residual():
     return (
-    cycler_func(color=["k"]),
-    cycler_func(color=["tab:grey"]),
-    cycler_func(color=["tab:orange"]),
-    cycler_func(color=["r"]))
+        cycler_func(color=["k"]),
+        cycler_func(color=["tab:grey"]),
+        cycler_func(color=["tab:orange"]),
+        cycler_func(color=["r"]),
+    )
 
 
 def plot_svd_of_residual(
@@ -89,7 +108,9 @@ def plot_svd_of_residual(
             linthresh=linthresh,
             cycler=custom_cycler,
         )
-        plot_rsv_residual(result_dataset, axes[1], indices=[index], cycler=custom_cycler)
+        plot_rsv_residual(
+            result_dataset, axes[1], indices=[index], cycler=custom_cycler
+        )
 
     axes[0].set_xlabel("Time (ps)")
     axes[0].get_legend().remove()
@@ -140,7 +161,7 @@ def plot_fitted_traces_iscience(
     figsize: tuple[float, float] = (30, 15),
     title: str = "Fit overview",
     y_label: str = "a.u.",
-    cycler: Cycler | None = PlotStyle().data_cycler_solid,
+    cycler: Cycler | None = PlotStyle().data_cycler_solid,  # noqa: B008
     show_zero_line: bool = True,
 ):
     with warnings.catch_warnings():
