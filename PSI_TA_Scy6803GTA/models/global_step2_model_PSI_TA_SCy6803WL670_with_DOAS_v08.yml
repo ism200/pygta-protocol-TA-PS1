@@ -1,0 +1,67 @@
+# Migrated from pyglotaran v0.7 for v0.8 staging validation.
+library:
+  complex670:
+    type: kinetic
+    rates:
+      (br2, br1): brates.k21
+      (br3, br2): brates.k32
+      (br4, br3): brates.k43
+      (br5, br4): brates.k54
+      (br5, br5): brates.k55
+  doas:
+    type: damped-oscillation
+    oscillations:
+      osc1:
+        frequency: osc.freq.1
+        rate: osc.rates.1
+  artifact670:
+    type: coherent-artifact
+    order: 3
+    width: artifact.CAwidth
+experiments:
+  default:
+    residual_function: variable_projection
+    datasets:
+      670TR1:
+        elements:
+        - complex670
+        - doas
+        - artifact670
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              br1: input.1
+              br2: input.0
+              br3: input.0
+              br4: input.0
+              br5: input.0
+              osc1: 1
+              artifact670: 1
+            center: irf.center1
+            width: irf.width1
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: &id001
+            - irf.disp1
+            reciproke_global_axis: true
+      670TR2:
+        elements:
+        - complex670
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              br1: input.1
+              br2: input.0
+              br3: input.0
+              br4: input.0
+              br5: input.0
+            center: irf.center1
+            width: irf.width1
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: *id001
+            reciproke_global_axis: true
+    clp_link_tolerance: 0.1
+    scale:
+      670TR1: scale.670
+      670TR2: scale.670TR2

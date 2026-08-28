@@ -1,0 +1,172 @@
+# Migrated from pyglotaran v0.7 for v0.8 staging validation.
+library:
+  complex670:
+    type: kinetic
+    rates:
+      (br2, br1): brates.k21
+      (br3, br2): brates.k32
+      (br4, br3): brates.k43
+      (br5, br4): brates.k54
+      (br5, br5): brates.k55
+      (freeChla, freeChla): rates.kF
+    clp_constraints:
+    - type: zero
+      target: freeChla
+      interval:
+      - - 692
+        - 731
+    - type: zero
+      target: freeChla
+      interval:
+      - - 750
+        - 760
+  complex700:
+    type: kinetic
+    rates:
+      (r2, r1): rates.k21
+      (r3, r2): rates.k32
+      (r4, r3): rates.k43
+      (r4, r4): brates.k55
+  doas:
+    type: damped-oscillation
+    oscillations:
+      osc1:
+        frequency: osc.freq.1
+        rate: osc.rates.1
+  artifact670:
+    type: coherent-artifact
+    order: 3
+    width: artifact.CAwidth
+  artifact700:
+    type: coherent-artifact
+    order: 3
+experiments:
+  default:
+    residual_function: variable_projection
+    datasets:
+      670TR1:
+        elements:
+        - complex670
+        - doas
+        - artifact670
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              br1: input.1
+              br2: input.0
+              br3: input.0
+              br4: input.0
+              br5: input.0
+              freeChla: input.2
+              osc1: 1
+              artifact670: 1
+            center: irf.center1
+            width: irf.width1
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: &id001
+            - irf.disp1
+            reciproke_global_axis: true
+            not_normalized_compartments: &id002
+            - freeChla
+      670TR2:
+        elements:
+        - complex670
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              br1: input.1
+              br2: input.0
+              br3: input.0
+              br4: input.0
+              br5: input.0
+              freeChla: input.2
+            center: irf.center1
+            width: irf.width1
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: *id001
+            reciproke_global_axis: true
+            not_normalized_compartments: *id002
+      700TR1:
+        elements:
+        - complex700
+        - artifact700
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              r1: input.1
+              r2: input.0
+              r3: input.0
+              r4: input.0
+              artifact700: 1
+            center: irf.center2
+            width: irf.width2
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: &id003
+            - irf.disp1
+            reciproke_global_axis: true
+        weights:
+        - global_interval:
+          - 703
+          - 704
+          value: 0.03
+        - global_interval:
+          - 705
+          - 706
+          value: 0.03
+        - global_interval:
+          - 706
+          - 707
+          value: 0.1
+        - global_interval:
+          - 698
+          - 699
+          value: 0.3
+      700TR2:
+        elements:
+        - complex700
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              r1: input.1
+              r2: input.0
+              r3: input.0
+              r4: input.0
+            center: irf.center2
+            width: irf.width2
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: *id003
+            reciproke_global_axis: true
+        weights:
+        - global_interval:
+          - 703
+          - 704
+          value: 0.03
+        - global_interval:
+          - 705
+          - 706
+          value: 0.03
+        - global_interval:
+          - 706
+          - 707
+          value: 0.1
+        - global_interval:
+          - 698
+          - 699
+          value: 0.3
+    clp_link_tolerance: 0.1
+    scale:
+      670TR1: scale.670
+      670TR2: scale.670TR2
+      700TR1: scale.700
+      700TR2: scale.700TR2
+    clp_relations:
+    - source: br5
+      target: r4
+      parameter: rel.r1
+      interval:
+      - - 0
+        - 1000

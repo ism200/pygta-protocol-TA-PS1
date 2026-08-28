@@ -1,0 +1,134 @@
+# Migrated from pyglotaran v0.7 for v0.8 staging validation.
+library:
+  complex700:
+    type: kinetic
+    rates:
+      (Bulk, Red): rates.ToBulkFromRed
+      (Red, Bulk): rates.ToRedFromBulk
+      (RP2, RP2): rates.ToRP2FromRP2
+      (RP2, Bulk): rates.ToRP2FromBulk
+  artifact670:
+    type: coherent-artifact
+    order: 3
+    width: artifact.CAwidth
+  artifact700:
+    type: coherent-artifact
+    order: 3
+  doas:
+    type: damped-oscillation
+    oscillations:
+      osc1:
+        frequency: osc.freq.1
+        rate: osc.rates.1
+experiments:
+  default:
+    residual_function: variable_projection
+    datasets:
+      670TR1:
+        elements:
+        - complex700
+        - doas
+        - artifact670
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              Bulk: input670.Bulk
+              Red: input670.Red
+              RP2: input670.0
+              osc1: 1
+              artifact670: 1
+            center: irf.center1
+            width: irf.width1
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: &id001
+            - irf.disp1
+            reciproke_global_axis: true
+      670TR2:
+        elements:
+        - complex700
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              Bulk: input670.Bulk
+              Red: input670.Red
+              RP2: input670.0
+            center: irf.center1
+            width: irf.width1
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: *id001
+            reciproke_global_axis: true
+      700TR1:
+        elements:
+        - complex700
+        - artifact700
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              Bulk: input700.Bulk
+              Red: input700.Red
+              RP2: input700.0
+              artifact700: 1
+            center: irf.center2
+            width: irf.width2
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: &id002
+            - irf.disp1
+            reciproke_global_axis: true
+        weights:
+        - global_interval:
+          - 703
+          - 704
+          value: 0.03
+        - global_interval:
+          - 705
+          - 706
+          value: 0.03
+        - global_interval:
+          - 706
+          - 707
+          value: 0.1
+        - global_interval:
+          - 698
+          - 699
+          value: 0.3
+      700TR2:
+        elements:
+        - complex700
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              Bulk: input700.Bulk
+              Red: input700.Red
+              RP2: input700.0
+            center: irf.center2
+            width: irf.width2
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: *id002
+            reciproke_global_axis: true
+        weights:
+        - global_interval:
+          - 703
+          - 704
+          value: 0.03
+        - global_interval:
+          - 705
+          - 706
+          value: 0.03
+        - global_interval:
+          - 706
+          - 707
+          value: 0.1
+        - global_interval:
+          - 698
+          - 699
+          value: 0.3
+    clp_link_tolerance: 0.1
+    scale:
+      670TR1: scale.670
+      670TR2: scale.670TR2
+      700TR1: scale.700
+      700TR2: scale.700TR2

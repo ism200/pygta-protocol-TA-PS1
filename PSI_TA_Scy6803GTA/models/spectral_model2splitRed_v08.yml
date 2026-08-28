@@ -1,0 +1,61 @@
+# Migrated from pyglotaran v0.7 for v0.8 staging validation.
+library:
+  spec_mc:
+    type: spectral
+    shapes:
+      s1:
+        type: skewed-gaussian
+        amplitude: spectral.amp1
+        location: spectral.loc1
+        width: spectral.width1
+        skewness: spectral.skew1
+      s2:
+        type: skewed-gaussian
+        amplitude: spectral.amp2
+        location: spectral.loc2
+        width: spectral.width2
+        skewness: spectral.skew2
+  spec_mc2:
+    type: spectral
+    shapes:
+      s3:
+        type: skewed-gaussian
+        amplitude: spectral.amp3
+        location: spectral.loc3
+        width: spectral.width3
+        skewness: spectral.skew3
+      s4:
+        type: skewed-gaussian
+        amplitude: spectral.amp4
+        location: spectral.loc4
+        width: spectral.width4
+        skewness: spectral.skew4
+experiments:
+  default:
+    residual_function: variable_projection
+    datasets:
+      dataset:
+        elements:
+        - spec_mc
+        - spec_mc2
+        spectral_axis_inverted: true
+        spectral_axis_scale: 1E7
+    clp_relations:
+    - source: s1
+      target: s2
+      parameter: rel.r1
+      interval:
+      - - 0
+        - 1000
+    - source: s1
+      target: s3
+      parameter: rel.r1
+      interval:
+      - - 0
+        - 1000
+    - source: s1
+      target: s4
+      parameter: rel.r1
+      interval:
+      - - 0
+        - 1000

@@ -1,0 +1,59 @@
+# Migrated from pyglotaran v0.7 for v0.8 staging validation.
+library:
+  complex700:
+    type: kinetic
+    rates:
+      (Bulk, Red): rates.ToBulkFromRed
+      (Red, Bulk): rates.ToRedFromBulk
+      (Red, Red): rates.kF
+      (Bulk, Bulk): rates.kF
+      (RC, RC): rates.kF
+      (RC, RP1): rates.ToRCFromRP1
+      (RP1, RC): rates.ToRP1FromRC
+      (Bulk, RC): rates.ToBulkFromRC
+      (RC, Bulk): rates.ToRCFromBulk
+      (RP2, RP1): rates.ToRP2FromRP1
+      (RP2, RP2): rates.ToRP2FromRP2
+experiments:
+  default:
+    residual_function: variable_projection
+    datasets:
+      700TR1:
+        elements:
+        - complex700
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              Bulk: input700.Bulk
+              Red: input700.Red
+              RC: input700.RC
+              RP1: input700.0
+              RP2: input700.0
+            center: irf.center2
+            width: irf.width2
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: &id001
+            - irf.disp1
+            reciproke_global_axis: true
+      700TR2:
+        elements:
+        - complex700
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              Bulk: input700.Bulk
+              Red: input700.Red
+              RC: input700.RC
+              RP1: input700.0
+              RP2: input700.0
+            center: irf.center2
+            width: irf.width2
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: *id001
+            reciproke_global_axis: true
+    clp_link_tolerance: 0.1
+    scale:
+      700TR1: scale.700
+      700TR2: scale.700TR2

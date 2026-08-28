@@ -1,0 +1,239 @@
+# Migrated from pyglotaran v0.7 for v0.8 staging validation.
+library:
+  complex670:
+    type: kinetic
+    rates:
+      (Bulk, Red): rates.ToBulkFromRed
+      (Red, Bulk): rates.ToRedFromBulk
+      (Ant1, Ant1): rates.kF
+      (Red, Red): rates.kF
+      (Bulk, Bulk): rates.kF
+      (RC, RC): rates.kF
+      (RC, RP1): rates.ToRCFromRP1
+      (RP1, RC): rates.ToRP1FromRC
+      (Bulk, RC): rates.ToBulkFromRC
+      (RC, Bulk): rates.ToRCFromBulk
+      (Bulk, Ant1): rates.ToBulkFromAnt1
+      (Ant1, Bulk): rates.ToAnt1FromBulk
+      (free, free): rates.kF
+      (RP2, RP1): rates.ToRP2FromRP1
+      (RP2, RP2): rates.ToRP2FromRP2
+    clp_constraints:
+    - type: zero
+      target: free
+      interval:
+      - - 692
+        - 731
+  complex700:
+    type: kinetic
+    rates:
+      (Bulk, Red): rates.ToBulkFromRed
+      (Red, Bulk): rates.ToRedFromBulk
+      (Ant1, Ant1): rates.kF
+      (Red, Red): rates.kF
+      (Bulk, Bulk): rates.kF
+      (RC, RC): rates.kF
+      (RC, RP1): rates.ToRCFromRP1
+      (RP1, RC): rates.ToRP1FromRC
+      (Bulk, RC): rates.ToBulkFromRC
+      (RC, Bulk): rates.ToRCFromBulk
+      (Bulk, Ant1): rates.ToBulkFromAnt1
+      (Ant1, Bulk): rates.ToAnt1FromBulk
+      (free, free): rates.kF
+      (RP2, RP1): rates.ToRP2FromRP1
+      (RP2, RP2): rates.ToRP2FromRP2
+    clp_constraints:
+    - type: zero
+      target: free
+      interval:
+      - - 692
+        - 731
+  artifact670:
+    type: coherent-artifact
+    order: 3
+    width: artifact.CAwidth
+  artifact700:
+    type: coherent-artifact
+    order: 3
+  doas:
+    type: damped-oscillation
+    oscillations:
+      osc1:
+        frequency: osc.freq.1
+        rate: osc.rates.1
+  mc1:
+    type: clp-guide
+    target: Ant1
+    dimension: time
+  mc5:
+    type: clp-guide
+    target: RP1
+    dimension: time
+  mc8:
+    type: clp-guide
+    target: free
+    dimension: time
+    clp_constraints:
+    - type: zero
+      target: free
+      interval:
+      - - 692
+        - 731
+experiments:
+  default:
+    residual_function: variable_projection
+    datasets:
+      670TR1:
+        elements:
+        - complex670
+        - doas
+        - artifact670
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              Ant1: input670.Ant1
+              Bulk: input670.Bulk
+              Red: input670.Red
+              RC: input670.RC
+              RP1: input670.0
+              RP2: input670.0
+              free: input670.free
+              osc1: 1
+              artifact670: 1
+            center: irf.center1
+            width: irf.width1
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: &id001
+            - irf.disp1
+            reciproke_global_axis: true
+            not_normalized_compartments: &id002
+            - free
+      670TR2:
+        elements:
+        - complex670
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              Ant1: input670.Ant1
+              Bulk: input670.Bulk
+              Red: input670.Red
+              RC: input670.RC
+              RP1: input670.0
+              RP2: input670.0
+              free: input670.free
+            center: irf.center1
+            width: irf.width1
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: *id001
+            reciproke_global_axis: true
+            not_normalized_compartments: *id002
+      700TR1:
+        elements:
+        - complex700
+        - artifact700
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              Ant1: input700.0
+              Bulk: input700.Bulk
+              Red: input700.Red
+              RC: input700.RC
+              RP1: input700.0
+              RP2: input700.0
+              free: input700.0
+              artifact700: 1
+            center: irf.center2
+            width: irf.width2
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: &id003
+            - irf.disp1
+            reciproke_global_axis: true
+        weights:
+        - global_interval:
+          - 703
+          - 704
+          value: 0.03
+        - global_interval:
+          - 705
+          - 706
+          value: 0.03
+        - global_interval:
+          - 706
+          - 707
+          value: 0.1
+        - global_interval:
+          - 698
+          - 699
+          value: 0.3
+      700TR2:
+        elements:
+        - complex700
+        activations:
+          irf:
+            type: gaussian
+            compartments:
+              Ant1: input700.0
+              Bulk: input700.Bulk
+              Red: input700.Red
+              RC: input700.RC
+              RP1: input700.0
+              RP2: input700.0
+              free: input700.0
+            center: irf.center2
+            width: irf.width2
+            dispersion_center: irf.dispcenter
+            center_dispersion_coefficients: *id003
+            reciproke_global_axis: true
+        weights:
+        - global_interval:
+          - 703
+          - 704
+          value: 0.03
+        - global_interval:
+          - 705
+          - 706
+          value: 0.03
+        - global_interval:
+          - 706
+          - 707
+          value: 0.1
+        - global_interval:
+          - 698
+          - 699
+          value: 0.3
+      Ant1SADS:
+        elements:
+        - mc1
+        weights:
+        - global_interval:
+          - 100
+          - 1000
+          value: 1.0
+      RP1SADS:
+        elements:
+        - mc5
+        weights:
+        - global_interval:
+          - 100
+          - 1000
+          value: 0.5
+      freeSADS:
+        elements:
+        - mc8
+        weights:
+        - global_interval:
+          - 100
+          - 1000
+          value: 0.5
+    clp_link_tolerance: 0.1
+    scale:
+      670TR1: scale.670
+      670TR2: scale.670TR2
+      700TR1: scale.700
+      700TR2: scale.700TR2
+      Ant1SADS: scale.Ant1SADS
+      RP1SADS: scale.RP1SADS
+      freeSADS: scale.freeSADS
